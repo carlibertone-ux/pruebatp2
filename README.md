@@ -34,7 +34,7 @@ El modelo se guarda como un `Pipeline` completo (imputación por mediana + estan
 ├── modelo/
 │   └── modelo_l_act.joblib     # Pipeline entrenado + métricas y rangos válidos
 ├── datos/
-│   ├── Dataset_TP3_Clasificacion.xlsx   # Dataset del proyecto
+│   ├── Dataset_Ordenado_Por_Fecha.xlsx   # Dataset del proyecto
 │   └── historico.csv           # Extracto liviano usado por los gráficos de la app
 ├── requirements.txt
 └── .streamlit/config.toml      # Tema visual
@@ -58,7 +58,7 @@ La app se abre en `http://localhost:8501`.
 ### Reentrenar el modelo (opcional)
 
 ```bash
-python entrenar_modelo.py datos/Dataset_TP3_Clasificacion.xlsx
+python entrenar_modelo.py datos/Dataset_Ordenado_Por_Fecha.xlsx
 ```
 
 Regenera `modelo/modelo_l_act.joblib` y `datos/historico.csv`. Con la semilla 42 se obtienen exactamente las métricas del TP2.

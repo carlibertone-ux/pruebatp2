@@ -8,7 +8,7 @@ Reproduce exactamente el marco experimental del notebook TP2_Regresion_LACT.ipyn
   - hiperparámetros elegidos por GroupKFold(5) en el TP2
 
 Uso:
-    python entrenar_modelo.py datos/Dataset_TP3_Clasificacion.xlsx
+    python entrenar_modelo.py datos/Dataset_Ordenado_Por_Fecha.xlsx
 
 Genera:
     modelo/modelo_l_act.joblib   -> pipeline + metadatos que usa app.py
@@ -37,12 +37,16 @@ VARS = ["DEL", "NRO_PARTO", "L_ANT", "GR_ANT", "PR_ANT", "GES",
 # Hiperparámetros seleccionados en el TP2 (GridSearchCV + GroupKFold(5))
 PARAMS_HGB = dict(learning_rate=0.1, max_depth=4, min_samples_leaf=20, l2_regularization=0.0)
 
+COLUMNAS_BASE = ["RP", "NRO_PARTO", "FECHA_PARTO", "DEL", "L_ANT", "L_ACT",
+                 "KG GR", "% GR", "KG PR", "% PR", "CS", "GES", "MES"]
+
 RAIZ = Path(__file__).parent
 
 
 def preparar(df: pd.DataFrame) -> pd.DataFrame:
     """Limpieza, variables rezagadas e ingeniería de variables (idéntico al TP2)."""
-    d = df.copy()
+    # Solo se usan las columnas originales del control lechero (no las de clasificación/estado sanitario)
+    d = df[COLUMNAS_BASE].copy()
     # RP es el identificador de la vaca; en el Excel original es numérico
     rp_num = pd.to_numeric(d["RP"], errors="coerce")
     if rp_num.notna().all():
@@ -140,4 +144,4 @@ def main(ruta_excel: str) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else str(RAIZ / "datos" / "Dataset_TP3_Clasificacion.xlsx"))
+    main(sys.argv[1] if len(sys.argv) > 1 else str(RAIZ / "datos" / "Dataset_Ordenado_Por_Fecha.xlsx"))
